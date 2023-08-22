@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  authservice:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_AUTHSERVICE_DATABASE_NAME=${DB_AUTHSERVICE_DATABASE_NAME}
+      - DB_AUTHSERVICE_USERNAME=${DB_AUTHSERVICE_USERNAME}
+      - DB_AUTHSERVICE_PASSWORD=${DB_AUTHSERVICE_PASSWORD}
+    links:
+      - redis_tokenstore
+      - authservice_database
+    depends_on:
+      - redis_tokenstore
+      - authservice_database
+  redis_tokenstore:
+    image: 'redis/redis-stack'
+    ports:
+      - '6379:6379'
+      - '8001:8001'
+  authservice_database:
+    image:  postgres:13-alpine
+    restart: always
+    volumes:
+      - db-authservice:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_AUTHSERVICE_DATABASE_NAME}
+      - POSTGRES_USER=${DB_AUTHSERVICE_USERNAME}
+      - POSTGRES_PASSWORD=${DB_AUTHSERVICE_PASSWORD}
+    ports:
+      - '5432:5432'
+volumes:
+  db-authservice:

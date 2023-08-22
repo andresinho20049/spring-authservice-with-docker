@@ -1,0 +1,10 @@
+target
+.settings
+.factorypath
+.gitignore
+.project
+dockerfile
+.classpath
+*.md
+.vscode/
+.env
