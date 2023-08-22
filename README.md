@@ -126,6 +126,10 @@ also visit **redis console**, runing port **8001**
 }
 ```
 
+## Preview
+![Preview](https://github.com/andresinho20049/spring-authservice-with-docker/blob/master/media/preview-started.gif)
+How to started
+
 ## Considerations
 This project was developed to be able to use it as an authentication service for other applications, such as websites
 
