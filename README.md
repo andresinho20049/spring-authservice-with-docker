@@ -58,7 +58,7 @@ In initialUser of both profiles, it is configured to register a test user/rules
 
 _The default is_:     
 Username: admin@email.com   
-Password: password@1234
+Password: strongPassword@1234
 
 With the project running, visit the Swagger page to test the endpoints
   - In the browser type the path: /swagger-ui/index.html
