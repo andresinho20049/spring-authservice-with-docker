@@ -1,6 +1,7 @@
 package com.andresinho20049.authservice.service.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,10 +13,13 @@ import org.springframework.stereotype.Service;
 import com.andresinho20049.authservice.models.User;
 import com.andresinho20049.authservice.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  *
  * @author André Carlos <https://github.com/andresinho20049>
  */
+@Slf4j
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -28,8 +32,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	User user = userRepository.findByEmailAndActive(username, true)
-				.orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found!", username)));
+    	Optional<User> optUser = Optional.empty();
+    	try {
+    		optUser = userRepository.findByEmailAndActive(username, true);			
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+    	
+    	User user = optUser
+    			.orElseThrow(() -> new UsernameNotFoundException(String.format("User %s not found!", username)));
 
         return new UserRepositoryUserDetails(user);
     }

@@ -13,8 +13,13 @@ import com.andresinho20049.authservice.service.RolesService;
 @Service
 public class RolesServiceImpl implements RolesService {
 
-	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	public RolesServiceImpl(RoleRepository roleRepository) {
+		super();
+		this.roleRepository = roleRepository;
+	}
 
 	@Override
 	public void save(Roles roles) {
