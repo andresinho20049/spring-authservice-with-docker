@@ -1,0 +1,11 @@
+package com.andresinho20049.authservice.enums;
+
+public enum RolesEnum {
+	ROLE_ADMIN,
+	ROLE_VIEW_USER,
+	ROLE_CREATE_USER,
+	ROLE_UPDATE_USER,
+	ROLE_UPDATE_ROLES_USER,
+	ROLE_DELETE_USER,
+	ROLE_DISABLE_USER
+}
