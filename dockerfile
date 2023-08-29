@@ -21,4 +21,3 @@ WORKDIR /opt/app
 # Copy target from build stage
 COPY --from=builder /opt/app/target/AuthService.war ./
 ENTRYPOINT ["java", "-jar", "./AuthService.war"]
-
