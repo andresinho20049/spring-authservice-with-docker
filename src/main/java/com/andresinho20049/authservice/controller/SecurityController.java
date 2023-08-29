@@ -41,8 +41,8 @@ public class SecurityController {
 					String.format("Revoke token %s", isRevoke), System.currentTimeMillis()));
 		}
 
-		return ResponseEntity.accepted()
-				.body(new StandardResponse(HttpStatus.OK.hashCode(), "revoked token", System.currentTimeMillis()));
+		return ResponseEntity.badRequest().body(
+				new StandardResponse(HttpStatus.BAD_REQUEST.hashCode(), "Token is " + authHeader, System.currentTimeMillis()));
 	}
 
 	@ResponseBody
