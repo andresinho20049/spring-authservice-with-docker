@@ -1,6 +1,6 @@
 # Spring boot com Redis e Postgres usando Docker
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/andresinho20049/spring-authservice-with-docker/src/master/README.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/andresinho20049/spring-authservice-with-docker/blob/master/README.md)
 
 ### Projeto iniciado baseado em Spring boilerplate
 Este projeto de inicialização do Spring foi desenvolvido com as configurações de autenticação padrão em mente e
