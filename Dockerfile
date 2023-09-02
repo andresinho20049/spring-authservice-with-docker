@@ -10,7 +10,7 @@ RUN mvn dependency:go-offline
 
 COPY ./src ./src
 RUN mvn clean
-RUN mvn install package -DskipTests
+RUN mvn install package
 
 ########### Stage RUN ###########
 FROM maven:3.6.3-jdk-8-slim
