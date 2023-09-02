@@ -10,7 +10,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -44,16 +47,19 @@ class UserServiceImplTest {
 	
 	@BeforeEach
 	private void beforeEach() {
+		log.debug("###################################\n");
 		MockitoAnnotations.openMocks(this);
 		this.userService = new UserServiceImpl(userRepositoryMock, new BCryptPasswordEncoder());
 	}
 	
 	@Test
 	void saveSuccess() {
+		
+		log.debug("##### Start Test - Save Success #####");
 
-		String name = "Fake";
-		String email = "andre.andresinho2009@hotmail.com";
-		String password = "strongPass@1234";
+		String name = "Suporte A5";
+		String email = "suporte@a5solutions.com";
+		String password = "suporteA5@1234";
 		Roles roles = new Roles("Test");
 		
 		User user = new User(name, email, password, Arrays.asList(roles));
@@ -66,25 +72,32 @@ class UserServiceImplTest {
 		assertTrue(userCaptured.isUpdatePassword());
 		assertNotEquals(password, userCaptured.getPassword());
 		
+		log.debug("##### End Test - Save Success #####");
+		
 	}
 	
 	@Test
 	void saveExpectingError() {
 		
+		log.debug("##### Start Test - Save Expecting Error #####");
+		
 		String emailExist = "alreadyExist@email.com";
 		Mockito.when(userRepositoryMock.existsByEmail(emailExist)).thenReturn(true);
 		
-		List<User> listUsers = new ArrayList<>();
-		listUsers.add(null);
-		listUsers.add(new User(null, null, null, null));
-		listUsers.add(new User("Contain only name", null, null, null));
-		listUsers.add(new User("Name", "email not valid", "12345678", null));
-		listUsers.add(new User("Email is empty", "", "12345678", null));
-		listUsers.add(new User("Name", emailExist, "12345678", null));
-		listUsers.add(new User("Not Contain Password", "email@email.com", null, null));
-		listUsers.add(new User("Weak Password", "email@email.com", "12345678", null));
+		Map<String, User> users = new HashMap<>();
+		users.put("User_null", null);
+		users.put("Name_null", new User(null, null, null, null));
+		users.put("Email_null", new User("Contain only name", null, null, null));
+		users.put("Email_invalid", new User("Name", "email not valid", "12345678", null));
+		users.put("Email_empty", new User("Email is empty", "", "12345678", null));
+		users.put("Email_exist", new User("Name", emailExist, "12345678", null));
+		users.put("Password_null", new User("Not Contain Password", "email@email.com", null, null));
+		users.put("Password_weak", new User("Weak Password", "email@email.com", "12345678", null));
 		
-		for (User user : listUsers) {
+		
+		for (Entry<String, User> mapUser : users.entrySet()) {
+			
+			User user = mapUser.getValue();
 			try {
 				
 				userService.save(user);
@@ -92,9 +105,12 @@ class UserServiceImplTest {
 				
 			} catch (Exception e) {
 				assertInstanceOf(ProjectException.class, e);
-				log.debug("Error expected: " + e.getMessage());
+				log.debug("Error expected: {} - Error occurred : {}", mapUser.getKey(), e.getMessage());
 			}
+			
 		}
+		
+		log.debug("##### End Test - Save Expecting Error #####");
 		
 	}
 	
@@ -102,7 +118,8 @@ class UserServiceImplTest {
 
 	@Test
 	void findAllTest() {
-		
+
+		log.debug("##### Start Test - findAll #####");
 		List<User> listMock = findAllMock();
 		
 		Mockito.when(userRepositoryMock.findAll()).thenReturn(listMock);
@@ -110,6 +127,7 @@ class UserServiceImplTest {
 		List<User> users = userService.findAll();
 		
 		assertEquals(listMock, users);
+		log.debug("##### End Test - findAll #####");
 		
 	}
 	
@@ -124,7 +142,6 @@ class UserServiceImplTest {
 			String email = String.format("user%s@email.com", i);
 			String password = UUID.randomUUID().toString();
 			
-			
 			user = new User(name, email, password, Arrays.asList(roles));
 			users.add(user);
 		}
@@ -135,6 +152,7 @@ class UserServiceImplTest {
 	@Test
 	void findByEmailWhenExist() {
 
+		log.debug("##### Start Test - findByEmailWhenExist #####");
 		String name = "Fake";
 		String email = "emailfake@email.com";
 		String password = UUID.randomUUID().toString();
@@ -148,11 +166,14 @@ class UserServiceImplTest {
 		User userReturned = userService.findByEmail(email, true);
 		
 		assertEquals(user, userReturned);
+		log.debug("##### End Test - findByEmailWhenExist #####");
 		
 	}
 	
 	@Test
 	void findByEmailWhenNotExist() {
+		
+		log.debug("##### Start Test - findByEmailWhenNotExist #####");
 		
 		String email = "emailfake@email.com";
 
@@ -162,8 +183,9 @@ class UserServiceImplTest {
 			
 		} catch (Exception e) {
 			assertInstanceOf(ProjectException.class, e);
-			log.debug("findByEmailWhenNotExist[Error expected]: " + e.getMessage());
+			log.debug("Error expected [Email %s not found on active users] to occurred: " + e.getMessage());
 		}
+		log.debug("##### Start Test - findByEmailWhenNotExist #####");
 		
 	}
 
