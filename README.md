@@ -1,34 +1,39 @@
 # Spring boot with Redis and Postgres using Docker
 
-[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/andresinho20049/spring-authservice-with-docker/src/master/README.pt-br.md)
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/andresinho20049/spring-authservice-with-docker/blob/master/README.pt-br.md)
 
-### Project started from Spring boilerplate
+**Spring boilerplate** <br/>
 This Spring boot project was developed with the default authentication settings in mind and 
 documentation to serve as a basis for developing other projects.
 
 
-**About:**
-
- - Role-based access control with JWT
- - technology used
+## :speech_balloon: About:
+ - Role-based access control with JWT :key:
+ - technology used :on:
     - Java 8
+    - Maven 3.6.3
     - Spring Boot 2.7.0
-    - Spring JPA
+    	- Starter Web
+     	- Starter Data JPA
+      	- Starter Test (JUnit / Mockito)
+      	- Starter Log4J2
+      	- Devtools
     - Spring Security 5.6.4     
-    - Spring Secutiry Oauth2 Autoconfigure 2.1.5
+    	- Secutiry Oauth2 Autoconfigure 2.1.5
+     	- Security Test 
     - Springfox (Swagger) 3.0.0
-    - Postgres:13
-    - Redis
     - Lombok - [Help setting up lombok](https://projectlombok.org/setup/eclipse)
-    - Log4J
-    - Project Maven
-- Application.properties - Default
+    - Database
+    	- Postgres:13 (Relational Database)
+    	- Starter Data Redis (Token Store)
+     	- h2database (Profile Test)
+- Application.properties - Default :page_with_curl:
     - Port: 5000
     - Profile: dev
     - Base path: /api
     - Encrypt: bcrypt
     - Hibernate DDL: update
-- ExceptionHandler
+- ExceptionHandler :x:
     - ProjectException:
         - Status: 400
         - Description: Exception provoked, n reasons, but mainly business rule
@@ -38,57 +43,63 @@ documentation to serve as a basis for developing other projects.
         
 > It is not necessary to have Java, Maven, Postgres or redis installed, all services will run in Docker containers.
 
-## Pre requirements
- - Docker
+## :arrow_double_down: Pre requirements
+ - Docker :arrow_down_small:
     - Install docker [here](https://docs.docker.com/engine/install/)
- - File .env
+ - File .env :clipboard:
     - Example:
     ```properties
     DB_AUTHSERVICE_DATABASE_NAME=authservice_database
     DB_AUTHSERVICE_USERNAME=postgres
     DB_AUTHSERVICE_PASSWORD=pg_postgres
+
+    CLIENT_ID=52da334b25d96304a09901705846663fef41ce8f
+    CLIENT_SECRET=99214c1e0dd20c56e76d4b2716b39e63a38e8d9b
     ```
 
-## Getting Started
+## :up: Getting Started
 1. Git clone project
  ```git
-    git clone https://{your-user}@bitbucket.org/codderaurateam/spring-authservice-with-docker.git
+ git clone https://github.com/andresinho20049/spring-authservice-with-docker.git
  ```
  
 2. Go into the project folder
 ```sh
-	cd spring-authservice-with-docker
+cd spring-authservice-with-docker
 ```
  
 3. Create a file .env in root folder project
 ```sh
-	tee -a ./.env <<EOF
-    DB_AUTHSERVICE_DATABASE_NAME=authservice_database
-    DB_AUTHSERVICE_USERNAME=postgres
-    DB_AUTHSERVICE_PASSWORD=pg_postgres
+tee -a ./.env <<EOF
+DB_AUTHSERVICE_DATABASE_NAME=authservice_database
+DB_AUTHSERVICE_USERNAME=postgres
+DB_AUTHSERVICE_PASSWORD=pg_postgres
+
+CLIENT_ID=52da334b25d96304a09901705846663fef41ce8f
+CLIENT_SECRET=99214c1e0dd20c56e76d4b2716b39e63a38e8d9b
 ```
 > To exit type EOF, then press ENTER
 
 4. Run docker compose with env file parameters
 ```sh
-    docker compose --env-file=./.env up --build
+docker compose --env-file=./.env up --build
 ```
 
-### Authentication
+### :unlock: Authentication
 It is configured by default to start in the Dev profile, 
 in this profile a support user is created when starting spring
 
-_The default is_:     
+_The default is_: :sunglasses: <br/>	
 Username: admin@email.com   
 Password: strongPassword@1234
 
 With the project running, visit the Swagger page to test the endpoints
-  - In the browser type the url: http://localhost:5000/api/swagger-ui/index.html
+  - In the browser type the path: `/api/swagger-ui/index.html`
   - or If you prefer [click here](http://localhost:5000/api/swagger-ui/index.html)
 
 also visit **redis console**, runing port **8001**
 
-## Model
+## :hash: Model
 ### User
 ```json
 {
@@ -147,13 +158,12 @@ also visit **redis console**, runing port **8001**
 }
 ```
 
-## Preview
+## :movie_camera: Preview
 ![Preview](https://github.com/andresinho20049/spring-authservice-with-docker/blob/master/media/preview-started.gif)
 How to started
 
-## Considerations
+## :copyright: Considerations
 This project was developed to be able to use it as an authentication service for other applications, such as websites
 
-
-> **Projeto:** Spring boot with Redis and Postgres using Docker      
-> **Autor:** André Carlos [(andresinho20049)](https://github.com/andresinho20049)       
+> **Project:** Spring boot with Redis and Postgres using Docker      
+> **By:** André Carlos [(andresinho20049)](https://github.com/andresinho20049)       

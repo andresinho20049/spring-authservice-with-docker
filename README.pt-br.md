@@ -1,94 +1,104 @@
 # Spring boot com Redis e Postgres usando Docker
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/andresinho20049/spring-authservice-with-docker/src/master/README.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/andresinho20049/spring-authservice-with-docker/blob/master/README.md)
 
-### Projeto iniciado baseado em Spring boilerplate
-Este projeto de inicialização do Spring foi desenvolvido com as configurações de autenticação padrão em mente e
-documentação para servir de base para o desenvolvimento de outros projetos.
+**Spring boilerplate** <br/>
+Este projeto de inicialização do Spring foi desenvolvido pensando nas configurações de autenticação padrão e na documentação para servir de base para o desenvolvimento de outros projetos.
 
 
-**Sobre:**
-
- - Regras de acesso com JWT
- - Tecnologias usadas
+## :speech_balloon: Sobre:
+ - Controle de acesso baseado em regras com JWT :key:
+ - Tecnologias usadas :on:
     - Java 8
+    - Maven 3.6.3
     - Spring Boot 2.7.0
-    - Spring JPA
+    	- Starter Web
+     	- Starter Data JPA
+      	- Starter Test (JUnit / Mockito)
+      	- Starter Log4J2
+      	- Devtools
     - Spring Security 5.6.4     
-    - Spring Secutiry Oauth2 Autoconfigure 2.1.5
+    	- Secutiry Oauth2 Autoconfigure 2.1.5
+     	- Security Test 
     - Springfox (Swagger) 3.0.0
-    - Postgres
-    - Redis
-    - Lombok - [Ajuda para configurar lombok](https://projectlombok.org/setup/eclipse)
-    - Log4J
-    - Projeto Maven
-- Application.properties - Default
+    - Lombok - [Help setting up lombok](https://projectlombok.org/setup/eclipse)
+    - Database
+    	- Postgres:13 (Relational Database)
+    	- Starter Data Redis (Token Store)
+     	- h2database (Profile Test)
+- Application.properties - Default :page_with_curl:
     - Port: 5000
     - Profile: dev
     - Base path: /api
     - Encrypt: bcrypt
     - Hibernate DDL: update
-- ExceptionHandler
+- ExceptionHandler :x:
     - ProjectException:
         - Status: 400
-        - Description: Exceção provocada, n motivos, mas principalmente regra de negócio
+        - Description: Exception provoked, n reasons, but mainly business rule
     - AuthorizationException:
         - Status: 403
-        - Description: Acesso negado com RuntimeException
+        - Description: Access Denied with RuntimeException
         
-> Não é necessário ter Java, Maven, Postgres ou redis instalados, todos os serviços serão executados em containers Docker.
+> Não é necessario ter Java, Maven, Postgres ou redis instalado, todos os serviços vão executar em containers Docker.
 
-## Pré requisitos
- - Docker
-    - Instalar Docker [here](https://docs.docker.com/engine/install/)
- - Arquivo .env
+## :arrow_double_down: Pré requisitos
+ - Docker :arrow_down_small:
+    - Instalar docker [here](https://docs.docker.com/engine/install/)
+ - Arquivo .env :clipboard:
     - Exemplo:
     ```properties
     DB_AUTHSERVICE_DATABASE_NAME=authservice_database
     DB_AUTHSERVICE_USERNAME=postgres
     DB_AUTHSERVICE_PASSWORD=pg_postgres
+
+    CLIENT_ID=52da334b25d96304a09901705846663fef41ce8f
+    CLIENT_SECRET=99214c1e0dd20c56e76d4b2716b39e63a38e8d9b
     ```
 
-## Como começar
-1. Clone o projeto Git
+## :up: Como começar
+1. Git clone do projeto
  ```git
-    git clone https://{your-user}@bitbucket.org/codderaurateam/spring-authservice-with-docker.git
+ git clone https://github.com/andresinho20049/spring-authservice-with-docker.git
  ```
  
-2. Dentro da pasta do projeto
+2. Entre na pasta do projeto
 ```sh
-	cd spring-authservice-with-docker
+cd spring-authservice-with-docker
 ```
  
-3. Crie um arquivo .env na pasta raiz do projeto
+3. Crie um arquivo `.env` na pasta raiz do projeto
 ```sh
-	tee -a ./.env <<EOF
-    DB_AUTHSERVICE_DATABASE_NAME=authservice_database
-    DB_AUTHSERVICE_USERNAME=postgres
-    DB_AUTHSERVICE_PASSWORD=pg_postgres
-```
-> Para sair escreva EOF, depois precione ENTER
+tee -a ./.env <<EOF
+DB_AUTHSERVICE_DATABASE_NAME=authservice_database
+DB_AUTHSERVICE_USERNAME=postgres
+DB_AUTHSERVICE_PASSWORD=pg_postgres
 
-4. Execute docker compose com parâmetros do arquivo env
+CLIENT_ID=52da334b25d96304a09901705846663fef41ce8f
+CLIENT_SECRET=99214c1e0dd20c56e76d4b2716b39e63a38e8d9b
+```
+> Para sair digite EOF, então pressione ENTER
+
+4. Execute docker compose com env file parametros
 ```sh
-    docker compose --env-file=./.env up --build
+docker compose --env-file=./.env up --build
 ```
 
-### Autenticação
-Está configurado por padrão para iniciar no perfil Dev, 
-neste perfil é criado um usuário de suporte ao iniciar o spring
+### :unlock: Autenticação
+Ele é configurado por padrão para iniciar no perfil Dev,
+neste perfil um usuário de suporte é criado ao iniciar o Spring
 
-_Usuário padrão_:     
+_O user default é_: :sunglasses: <br/>	
 Username: admin@email.com   
 Password: strongPassword@1234
 
 Com o projeto em execução, visite a página do Swagger para testar os endpoints
-  - No navegador digite a url: http://localhost:5000/api/swagger-ui/index.html
+  - No navegador digite o path: `/api/swagger-ui/index.html`
   - ou se preferir [click aqui](http://localhost:5000/api/swagger-ui/index.html)
 
-visite também **redis console**, executando a porta **8001**
+tambem visite **redis console**, rodando na porta **8001**
 
-## Modelos
+## :hash: Modelo
 ### User
 ```json
 {
@@ -147,13 +157,12 @@ visite também **redis console**, executando a porta **8001**
 }
 ```
 
-## Visualização
-![Visualizacao](https://github.com/andresinho20049/spring-authservice-with-docker/blob/master/media/preview-started.gif)
-How to started
+## :movie_camera: Preview
+![Preview](https://github.com/andresinho20049/spring-authservice-with-docker/blob/master/media/preview-started.gif)
+Como iniciar
 
-## Considerações
+## :copyright: Considerações
 Este projeto foi desenvolvido para poder utilizá-lo como serviço de autenticação para outras aplicações, como sites
 
-
 > **Projeto:** Spring boot com Redis e Postgres usando Docker      
-> **Autor:** André Carlos [(andresinho20049)](https://github.com/andresinho20049)    
+> **Author:** André Carlos [(andresinho20049)](https://github.com/andresinho20049)       
