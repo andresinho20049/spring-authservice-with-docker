@@ -8,6 +8,8 @@ services:
       - DB_AUTHSERVICE_DATABASE_NAME=${DB_AUTHSERVICE_DATABASE_NAME}
       - DB_AUTHSERVICE_USERNAME=${DB_AUTHSERVICE_USERNAME}
       - DB_AUTHSERVICE_PASSWORD=${DB_AUTHSERVICE_PASSWORD}
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
     links:
       - redis_tokenstore
       - authservice_database
@@ -15,13 +17,12 @@ services:
       - redis_tokenstore
       - authservice_database
   redis_tokenstore:
-    image: 'redis/redis-stack'
+    image: 'redis:alpine3.18'
     ports:
       - '6379:6379'
       - '8001:8001'
   authservice_database:
     image:  postgres:13-alpine
-    restart: always
     volumes:
       - db-authservice:/var/lib/postgresql/data
     environment:
