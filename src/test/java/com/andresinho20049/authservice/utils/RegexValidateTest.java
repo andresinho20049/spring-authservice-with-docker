@@ -36,7 +36,7 @@ class RegexValidateTest {
 
 		String regexEmail = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
 
-		String[] emailsValid = {"user@email.com", "pessoa@domain.com", "maria@gmail.com", "test@a5solutions.com"};
+		String[] emailsValid = {"user@email.com", "pessoa@domain.com", "maria@gmail.com", "test@hotmail.com"};
 		for (String email : emailsValid) {
 			assertTrue(regexValidate.matcher(email, regexEmail));
 		}
